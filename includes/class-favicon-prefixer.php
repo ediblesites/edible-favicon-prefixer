@@ -2,7 +2,6 @@
 
 class Favicon_Prefixer {
     private $favicon_service;
-    private $is_test_mode = false;
 
     public function __construct($favicon_service = null) {
         if ($favicon_service) {
@@ -83,10 +82,6 @@ class Favicon_Prefixer {
             debug_log('Error processing content: ' . $e->getMessage());
             return $content;
         }
-    }
-
-    public function enable_test_mode() {
-        $this->is_test_mode = true;
     }
 
     private function is_enabled_post_type() {

@@ -12,7 +12,6 @@ class Favicon_Prefixer_CLI extends WP_CLI_Command {
         
         // Create plugin instance with dependencies
         $this->plugin = new Favicon_Prefixer($this->favicon_service);
-        $this->plugin->enable_test_mode();
     }
 
     /**

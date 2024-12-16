@@ -20,6 +20,7 @@ A WordPress plugin that automatically adds favicons in front of external links i
 - Composer for dependency management
 
 ### Composer Dependencies
+- League URI ([league/uri](https://github.com/thephpleague/uri)): For URL validation and domain extraction
 - Simple HTML DOM ([voku/simple_html_dom](https://github.com/voku/simple_html_dom)): For reliable HTML parsing
 
 ## Installation
@@ -56,14 +57,14 @@ The plugin adds minimal styling for favicons:
 The plugin includes WP-CLI commands for testing and maintenance:
 
 ```bash
-# Test favicon retrieval and display for a URL
-wp favicon autotest https://wordpress.org
-
-# Clear the favicon cache
+ Clear the favicon cache
 wp favicon cache_clear
 
 # Show cache statistics
 wp favicon cache_status
+
+# Test favicon retrieval and display for a URL
+wp favicon autotest https://wordpress.org
 ```
 
 ## Architecture
