@@ -1,0 +1,17 @@
+{
+    "name": "internal/favicon-prefixer",
+    "description": "WordPress plugin to prefix favicons to links",
+    "version": "1.0.0",
+    "type": "wordpress-plugin",
+    "require": {
+        "php": ">=8.2",
+        "league/uri": "^7.4",
+        "voku/simple_html_dom": "^4.8"
+    },
+    "autoload": {
+        "classmap": [
+            "includes/",
+            "admin/"
+        ]
+    }
+}
