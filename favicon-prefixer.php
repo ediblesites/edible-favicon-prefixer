@@ -25,6 +25,7 @@ if (defined('WP_CLI') && WP_CLI) {
 // Load Composer autoloader
 require_once FAVICON_PREFIXER_PATH . 'vendor/autoload.php';
 
+// Load includes
 require_once FAVICON_PREFIXER_PATH . 'includes/class-favicon-service.php';
 require_once FAVICON_PREFIXER_PATH . 'includes/class-favicon-prefixer.php';
 
