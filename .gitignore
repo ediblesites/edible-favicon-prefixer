@@ -1,3 +1,4 @@
-/vendor/
+# Deliberately include /vendor/ directory in the plugin
+# /vendor/
 /composer.lock
 .DS_Store
