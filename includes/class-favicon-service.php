@@ -4,7 +4,7 @@ use League\Uri\Uri;
 
 class Favicon_Service {
     private const GOOGLE_FAVICON_URL = 'https://www.google.com/s2/favicons';
-    private const FAVICON_SIZE = 16;
+    private const FAVICON_SIZE = 64;
     private const CACHE_DURATION = 30 * DAY_IN_SECONDS;
 
     /**
