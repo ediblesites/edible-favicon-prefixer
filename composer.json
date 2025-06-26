@@ -4,7 +4,7 @@
     "version": "1.0.0",
     "type": "wordpress-plugin",
     "require": {
-        "php": ">=8.2",
+        "php": ">=8.0",
         "league/uri": "^7.4",
         "voku/simple_html_dom": "^4.8"
     },
