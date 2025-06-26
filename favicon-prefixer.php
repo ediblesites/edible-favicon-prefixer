@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Favicon Prefixer
  * Description: Prefixes favicons to links within content
- * Version: 1.0.5
+ * Version: 1.0.6
  * Author: Edible Sites
  * Author URI: https://ediblesites.com
  * Plugin URI: https://github.com/ediblesites/edible-favicon-prefixer
@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Plugin constants
-define('FAVICON_PREFIXER_VERSION', '1.0.5');
+define('FAVICON_PREFIXER_VERSION', '1.0.6');
 define('FAVICON_PREFIXER_FILE', __FILE__);
 define('FAVICON_PREFIXER_PATH', plugin_dir_path(__FILE__));
 define('FAVICON_PREFIXER_URL', plugin_dir_url(__FILE__));

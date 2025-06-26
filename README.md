@@ -2,7 +2,7 @@
 
 A WordPress plugin that automatically prefixes favicons to external links in your content.
 
-**Version:** 1.0.5
+**Version:** 1.0.6
 
 ## Features
 
