@@ -94,3 +94,10 @@ Favicons are stored in `wp-content/uploads/favicons/` and cached for 30 days.
 - **Transient caching** - Favicon file paths cached for 30 days
 - **Object caching** - Processed content cached for 1 hour
 - **File caching** - Favicon files stored locally
+
+---
+
+**Made this for us at [Edible Sites](https://ediblesites.com), sharing it with you ❤️** We're also behind:
+
+* [PayPerFax.com](https://payperfax.com/), a pay-per-use online fax service, and
+* [Faxbeep.com](https://faxbeep.com), a free fax testing service

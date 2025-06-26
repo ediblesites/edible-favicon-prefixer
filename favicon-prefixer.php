@@ -3,12 +3,13 @@
  * Plugin Name: Favicon Prefixer
  * Description: Prefixes favicons to links within content
  * Version: 1.0.5
+ * Author: Edible Sites
+ * Author URI: https://ediblesites.com
+ * Plugin URI: https://github.com/ediblesites/edible-favicon-prefixer
+ * GitHub Plugin URI: https://github.com/ediblesites/edible-favicon-prefixer
  * Requires at least: 6.0
  * Requires PHP: 8.2
  * Text Domain: favicon-prefixer
- * GitHub Plugin URI: https://github.com/ediblesites/edible-favicon-prefixer
- * Author: Edible Sites
- * Author URI: https://ediblesites.com
  * License: GPL-2.0+
  */
 
