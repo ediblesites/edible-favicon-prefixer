@@ -108,10 +108,8 @@ class Favicon_Prefixer_CLI extends WP_CLI_Command {
      */
     public function cache_clear($args, $assoc_args) {
         debug_log("CLI: Starting cache clear");
-        
-        $admin = new Favicon_Prefixer_Admin();
-        $admin->clear_cache();
-        
+        $cache_manager = new Cache_Manager();
+        $cache_manager->clear_cache();
         debug_log("CLI: Cache clear completed");
         WP_CLI::success("Favicon cache cleared");
     }
@@ -120,27 +118,10 @@ class Favicon_Prefixer_CLI extends WP_CLI_Command {
      * Show cache statistics
      */
     public function cache_status() {
-        global $wpdb;
-        
-        $count = $wpdb->get_var(
-            $wpdb->prepare(
-                "SELECT COUNT(*) FROM $wpdb->options WHERE option_name LIKE %s",
-                $wpdb->esc_like('_transient_favicon_prefixer_') . '%'
-            )
-        );
-
-        $upload_dir = wp_upload_dir();
-        $favicon_dir = $upload_dir['basedir'] . '/favicons';
-        $size = 0;
-        
-        if (file_exists($favicon_dir)) {
-            foreach (glob("$favicon_dir/*.*") as $file) {
-                $size += filesize($file);
-            }
-        }
-
-        WP_CLI::log("Cached favicons: $count");
-        WP_CLI::log("Cache size: " . size_format($size));
+        $cache_manager = new Cache_Manager();
+        $status = $cache_manager->get_cache_status();
+        WP_CLI::log("Cached favicons: {$status['count']}");
+        WP_CLI::log("Cache size: " . size_format($status['size']));
     }
 
     /**
@@ -165,47 +146,22 @@ class Favicon_Prefixer_CLI extends WP_CLI_Command {
      *     wp favicon cache_list --format=json
      */
     public function cache_list($args, $assoc_args) {
-        global $wpdb;
-        
-        // Get all favicon transients
-        $transients = $wpdb->get_results(
-            $wpdb->prepare(
-                "SELECT option_name, option_value FROM $wpdb->options 
-                WHERE option_name LIKE %s 
-                AND option_name NOT LIKE %s",
-                $wpdb->esc_like('_transient_favicon_prefixer_') . '%',
-                $wpdb->esc_like('_transient_timeout_favicon_prefixer_') . '%'
-            )
-        );
+        $cache_manager = new Cache_Manager();
+        $items = $cache_manager->get_cached_favicons();
 
-        $items = [];
-        foreach ($transients as $transient) {
-            $filepath = $transient->option_value;
-            if (!file_exists($filepath)) {
-                continue;
-            }
-
-            $filename = basename($filepath);
-            $filesize = size_format(filesize($filepath));
-            $modified = date('Y-m-d H:i:s', filemtime($filepath));
-
-            $items[] = [
-                'domain' => str_replace('.png', '', $filename),
-                'file' => $filename,
-                'size' => $filesize,
-                'modified' => $modified
-            ];
+        $format = $assoc_args['format'] ?? 'table';
+        foreach ($items as &$item) {
+            $item['size'] = size_format($item['size']);
+            $item['modified'] = date('Y-m-d H:i:s', $item['modified']);
         }
+        unset($item);
 
         if (empty($items)) {
-            WP_CLI::warning('No cached favicons found');
+            WP_CLI::log('No cached favicons found.');
             return;
         }
 
-        WP_CLI\Utils\format_items(
-            $assoc_args['format'] ?? 'table',
-            $items,
-            ['domain', 'file', 'size', 'modified']
-        );
+        $fields = ['domain', 'file', 'size', 'modified'];
+        WP_CLI\Utils\format_items($format, $items, $fields);
     }
 } 

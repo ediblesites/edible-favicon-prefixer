@@ -1,6 +1,6 @@
 # Favicon Prefixer
 
-A WordPress plugin that automatically adds favicons to external links in your content.
+A WordPress plugin that automatically prefixes favicons to external links in your content.
 
 ## Features
 
@@ -79,4 +79,4 @@ Available formats: table (default), csv, json, yaml
 
 ## Version
 
-**Current Version:** 1.0.3
+**Current Version:** 1.0.4

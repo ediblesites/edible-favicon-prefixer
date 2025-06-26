@@ -56,7 +56,8 @@ class Favicon_Prefixer_Admin {
             isset($_POST['favicon_prefixer_clear_cache']) && 
             check_admin_referer('favicon_prefixer_clear_cache')
         ) {
-            favicon_prefixer_clear_cache();
+            $cache_manager = new Cache_Manager();
+            $cache_manager->clear_cache();
             add_settings_error(
                 'favicon_prefixer',
                 'cache_cleared',
@@ -97,38 +98,4 @@ function favicon_prefixer_sanitize_post_types($value) {
         return [];
     }
     return array_filter($value, 'post_type_exists');
-}
-
-/**
- * Clear favicon cache
- */
-function favicon_prefixer_clear_cache() {
-    // Check user capabilities
-    if (!current_user_can('manage_options')) {
-        wp_die(__('You do not have sufficient permissions to perform this action.', 'favicon-prefixer'));
-    }
-    
-    global $wpdb;
-    
-    // Delete transients
-    $wpdb->query(
-        $wpdb->prepare(
-            "DELETE FROM $wpdb->options WHERE option_name LIKE %s OR option_name LIKE %s",
-            $wpdb->esc_like('_transient_favicon_prefixer_') . '%',
-            $wpdb->esc_like('_transient_timeout_favicon_prefixer_') . '%'
-        )
-    );
-
-    // Delete files
-    $upload_dir = wp_upload_dir();
-    $favicon_dir = $upload_dir['basedir'] . '/favicons';
-    
-    if (file_exists($favicon_dir)) {
-        $files = glob("$favicon_dir/*.png");
-        foreach ($files as $file) {
-            if (!unlink($file)) {
-                debug_log("Failed to delete file: $file");
-            }
-        }
-    }
 } 

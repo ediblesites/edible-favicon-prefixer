@@ -5,7 +5,11 @@ use League\Uri\Uri;
 class Favicon_Service {
     private const GOOGLE_FAVICON_URL = 'https://www.google.com/s2/favicons';
     private const FAVICON_SIZE = 64;
-    private const CACHE_DURATION = 30 * DAY_IN_SECONDS;
+    private $cache_manager;
+
+    public function __construct() {
+        $this->cache_manager = new Cache_Manager();
+    }
 
     /**
      * Get favicon for a URL, using cache if available
@@ -22,7 +26,7 @@ class Favicon_Service {
             return false;
         }
 
-        $cached = $this->get_cached_favicon($domain);
+        $cached = $this->cache_manager->get_cached_favicon($domain);
         if ($cached) {
             debug_log("Using cached favicon for domain: $domain");
             return $cached;
@@ -78,17 +82,6 @@ class Favicon_Service {
     }
 
     /**
-     * Get cached favicon path if valid
-     */
-    private function get_cached_favicon($domain) {
-        $path = get_transient('favicon_prefixer_' . md5($domain));
-        if (!$path || !file_exists($path)) {
-            return false;
-        }
-        return $path;
-    }
-
-    /**
      * Fetch favicon from Google service and cache it
      */
     private function fetch_and_cache_favicon($domain) {
@@ -119,8 +112,7 @@ class Favicon_Service {
     private function save_favicon($domain, $favicon_data) {
         debug_log("save_favicon: Starting with domain=$domain");
         
-        $upload_dir = wp_upload_dir();
-        $favicon_dir = $upload_dir['basedir'] . '/favicons';
+        $favicon_dir = favicon_prefixer_get_favicon_dir();
         
         // Custom domain sanitization that preserves dots
         $filename = favicon_prefixer_sanitize_domain_filename($domain) . '.png';
@@ -134,7 +126,7 @@ class Favicon_Service {
             return false;
         }
 
-        set_transient('favicon_prefixer_' . md5($domain), $filepath, self::CACHE_DURATION);
+        $this->cache_manager->cache_favicon($domain, $filepath);
         debug_log("Saved favicon for domain: $domain at $filepath");
         
         return $filepath;

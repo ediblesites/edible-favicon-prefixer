@@ -12,6 +12,16 @@ if (!function_exists('debug_log')) {
 }
 
 /**
+ * Get the favicon directory path
+ */
+if (!function_exists('favicon_prefixer_get_favicon_dir')) {
+    function favicon_prefixer_get_favicon_dir() {
+        $upload_dir = wp_upload_dir();
+        return $upload_dir['basedir'] . '/' . FAVICON_PREFIXER_DIR;
+    }
+}
+
+/**
  * Sanitize domain name for filename while preserving dots
  */
 if (!function_exists('favicon_prefixer_sanitize_domain_filename')) {
