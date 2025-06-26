@@ -8,7 +8,7 @@
  * Plugin URI: https://github.com/ediblesites/edible-favicon-prefixer
  * GitHub Plugin URI: https://github.com/ediblesites/edible-favicon-prefixer
  * Requires at least: 6.0
- * Requires PHP: 8.2
+ * Requires PHP: 8.0
  * Text Domain: favicon-prefixer
  * License: GPL-2.0+
  */
