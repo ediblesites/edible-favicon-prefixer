@@ -48,9 +48,7 @@ class ComposerStaticInit3dd08d3d40810101735973d5f1a1fa0b
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'Favicon_Prefixer' => __DIR__ . '/../..' . '/includes/class-favicon-prefixer.php',
         'Favicon_Prefixer_Admin' => __DIR__ . '/../..' . '/admin/class-admin.php',
-        'Favicon_Prefixer_CLI' => __DIR__ . '/../..' . '/includes/class-cli.php',
         'Favicon_Service' => __DIR__ . '/../..' . '/includes/class-favicon-service.php',
     );
 

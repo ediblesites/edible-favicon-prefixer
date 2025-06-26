@@ -7,8 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
-    'Favicon_Prefixer' => $baseDir . '/includes/class-favicon-prefixer.php',
     'Favicon_Prefixer_Admin' => $baseDir . '/admin/class-admin.php',
-    'Favicon_Prefixer_CLI' => $baseDir . '/includes/class-cli.php',
     'Favicon_Service' => $baseDir . '/includes/class-favicon-service.php',
 );

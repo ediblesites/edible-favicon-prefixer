@@ -73,7 +73,7 @@ class Favicon_Prefixer_Admin {
         // Show admin notices
         settings_errors('favicon_prefixer');
         
-        require_once FAVICON_PREFIXER_PATH . 'admin/views/settings-page.php';
+        require_once FAVICON_PREFIXER_PATH . 'admin/settings-page.php';
     }
 
     /**

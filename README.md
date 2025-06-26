@@ -79,4 +79,4 @@ Available formats: table (default), csv, json, yaml
 
 ## Version
 
-**Current Version:** 1.0.2
+**Current Version:** 1.0.3

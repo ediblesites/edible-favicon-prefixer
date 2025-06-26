@@ -2,10 +2,14 @@
 /**
  * Plugin Name: Favicon Prefixer
  * Description: Prefixes favicons to links within content
- * Version: 1.0.2
+ * Version: 1.0.3
  * Requires at least: 6.0
  * Requires PHP: 8.2
  * Text Domain: favicon-prefixer
+ * GitHub Plugin URI: https://github.com/ediblesites/edible-favicon-prefixer
+ * Author: Edible Sites
+ * Author URI: https://ediblesites.com
+ * License: GPL-2.0+
  */
 
 if (!defined('ABSPATH')) {
@@ -13,7 +17,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Plugin constants
-define('FAVICON_PREFIXER_VERSION', '1.0.2');
+define('FAVICON_PREFIXER_VERSION', '1.0.3');
 define('FAVICON_PREFIXER_FILE', __FILE__);
 define('FAVICON_PREFIXER_PATH', plugin_dir_path(__FILE__));
 define('FAVICON_PREFIXER_URL', plugin_dir_url(__FILE__));
