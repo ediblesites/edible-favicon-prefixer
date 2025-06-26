@@ -6,6 +6,7 @@ if (!defined('ABSPATH')) {
 $post_types = Favicon_Prefixer_Admin::get_filtered_post_types();
 $enabled_types = get_option('favicon_prefixer_post_types', ['post', 'page']);
 $debug_mode = get_option('favicon_prefixer_debug_mode', false);
+$ignore_internal = get_option('favicon_prefixer_ignore_internal', true);
 ?>
 
 <div class="wrap">
@@ -30,6 +31,19 @@ $debug_mode = get_option('favicon_prefixer_debug_mode', false);
             <?php
         }
         ?>
+
+        <h2>Link Processing</h2>
+        <p>
+            <label>
+                <input type="checkbox" 
+                       name="favicon_prefixer_ignore_internal" 
+                       value="1"
+                       <?php checked($ignore_internal); ?>>
+                Ignore internal links (only process external links)
+            </label>
+            <br>
+            <small>When checked, favicons will only be added to links pointing to external websites.</small>
+        </p>
 
         <h2>Debug Mode</h2>
         <p>

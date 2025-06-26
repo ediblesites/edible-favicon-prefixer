@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Favicon Prefixer
  * Description: Prefixes favicons to links within content
- * Version: 1.0.4
+ * Version: 1.0.5
  * Requires at least: 6.0
  * Requires PHP: 8.2
  * Text Domain: favicon-prefixer
@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Plugin constants
-define('FAVICON_PREFIXER_VERSION', '1.0.4');
+define('FAVICON_PREFIXER_VERSION', '1.0.5');
 define('FAVICON_PREFIXER_FILE', __FILE__);
 define('FAVICON_PREFIXER_PATH', plugin_dir_path(__FILE__));
 define('FAVICON_PREFIXER_URL', plugin_dir_url(__FILE__));
@@ -129,7 +129,7 @@ function favicon_prefixer_activate() {
 }
 
 /**
- * Uninstall function - called by uninstall.php
+ * Uninstallation hook
  */
 function favicon_prefixer_uninstall() {
     // Delete all favicon transients and files
@@ -141,6 +141,7 @@ function favicon_prefixer_uninstall() {
     // Delete plugin options
     delete_option('favicon_prefixer_post_types');
     delete_option('favicon_prefixer_debug_mode');
+    delete_option('favicon_prefixer_ignore_internal');
 
     // Clear object cache
     wp_cache_flush_group('favicon_prefixer');

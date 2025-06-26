@@ -2,81 +2,95 @@
 
 A WordPress plugin that automatically prefixes favicons to external links in your content.
 
+**Version:** 1.0.5
+
 ## Features
 
-- Automatically detects external links in post content
-- Fetches favicons from Google's favicon service
-- Caches favicons locally for performance
-- Configurable post type support
-- Debug logging for troubleshooting
-- WP-CLI commands for management
-- Clear favicon cache when needed
+- **Automatic favicon detection** - Uses Google's favicon service to fetch favicons
+- **Smart caching** - Caches favicons locally for better performance
+- **Post type control** - Choose which post types display favicons
+- **Internal link control** - Option to process or ignore internal links
+- **Selective exclusion** - Use `rel="nofavicon"` to exclude specific links
+- **Debug logging** - Built-in debugging for troubleshooting
+- **WP-CLI support** - Command-line tools for cache management
+- **Clean uninstall** - Removes all data when plugin is deleted
 
 ## Installation
 
-1. Upload the plugin files to `/wp-content/plugins/favicon-prefixer/`
-2. Activate the plugin through the 'Plugins' screen in WordPress
-3. Configure settings at Settings → Favicon Prefixer
+1. Click the **"<> Code"** button on this GitHub page
+2. Select **"Download ZIP"**
+3. Upload the ZIP file to your WordPress site via **Plugins > Add New > Upload Plugin**
+4. Activate the plugin
+
+## Updates
+
+This plugin supports automatic updates via the [Git Updater](https://github.com/afragen/git-updater) plugin:
+
+1. Install the [Git Updater](https://github.com/afragen/git-updater/releases/) plugin
+2. Activate it and click 'Activate Free License' (no license required)
+3. The plugin will automatically detect this repository and offer updates
+
+## Configuration
+
+The plugin has sensible defaults, so should require no configuration on installation. The following configuration settings are available.
+
+### Post Types
+Select which post types should display favicons. Defaults to Posts and Pages.
+
+### Link Processing
+- **Ignore internal links** - When enabled, only external links get favicons. Defaults to "On".
+
+### Debug Mode
+Enable debug logging to troubleshoot issues. Logs are written to WordPress debug log. Defaults to "off".
 
 ## Usage
 
-### Basic Usage
+### Automatic Processing
+The plugin automatically processes content when posts are displayed. No additional setup required.
 
-Once activated, the plugin will automatically add favicons to external links in your content. No additional configuration required.
+### Excluding Specific Links
+To exclude a specific link from getting a favicon, add `rel="nofavicon"` to the link:
 
-### Configuration
+```html
+<a href="https://example.com" rel="nofavicon">This link won't get a favicon</a>
+```
 
-Go to **Settings → Favicon Prefixer** to configure:
-
-- **Post Types**: Select which post types should display favicons
-- **Debug Mode**: Enable detailed logging for troubleshooting
+You can combine this with other rel attributes:
+```html
+<a href="https://example.com" rel="nofollow nofavicon">Nofollow link without favicon</a>
+```
 
 ### Cache Management
-
-Clear the favicon cache:
-```
-wp favicon cache_clear
-```
-
-Show cache statistics:
-```
-wp favicon cache_status
-```
+Use the "Clear Cache" button in settings to remove all cached favicons.
 
 ## WP-CLI Commands
 
-### Clear Cache
+### List cached favicons
+```bash
+wp favicon cache_list [--format=table|csv|json|yaml]
 ```
+
+### Clear cache
+```bash
 wp favicon cache_clear
 ```
 
-### Show Cache Statistics
-```
-wp favicon cache_status
-```
-
-### List Cached Favicons
-```
-wp favicon cache_list [--format=<format>]
+### Test a URL
+```bash
+wp favicon autotest https://example.com [--debug]
 ```
 
-Available formats: table (default), csv, json, yaml
+## Technical Details
 
-## How It Works
+### Favicon Storage
+Favicons are stored in `wp-content/uploads/favicons/` and cached for 30 days.
 
-1. Scans post content for external links
-2. Extracts domain from each external URL
-3. Checks local cache for favicon
-4. Fetches favicon from Google service if not cached
-5. Adds favicon image before link text
-6. Caches processed content for performance
+### Content Processing
+- Uses HTML DOM parsing for reliable link detection
+- Processes content through WordPress `the_content` filter
+- Caches processed content for 1 hour to improve performance
 
-## Requirements
-
-- WordPress 6.0 or higher
-- PHP 8.2 or higher
-- Composer dependencies (installed automatically)
-
-## Version
-
-**Current Version:** 1.0.4
+### Caching Strategy
+- **Transient caching** - Favicon file paths cached for 30 days
+- **Object caching** - Processed content cached for 1 hour
+- **File caching** - Favicon files stored locally

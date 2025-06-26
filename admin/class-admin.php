@@ -46,6 +46,16 @@ class Favicon_Prefixer_Admin {
                 'sanitize_callback' => 'rest_sanitize_boolean'
             ]
         );
+
+        register_setting(
+            self::OPTION_GROUP,
+            'favicon_prefixer_ignore_internal',
+            [
+                'type' => 'boolean',
+                'default' => true,
+                'sanitize_callback' => 'rest_sanitize_boolean'
+            ]
+        );
     }
 
     /**

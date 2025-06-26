@@ -27,11 +27,6 @@ class Cache_Manager {
      * Clear all favicon cache
      */
     public function clear_cache() {
-        // Check user capabilities
-        if (!current_user_can('manage_options')) {
-            wp_die(__('You do not have sufficient permissions to perform this action.', 'favicon-prefixer'));
-        }
-        
         global $wpdb;
         
         // Delete transients
@@ -112,6 +107,11 @@ class Cache_Manager {
                 'modified' => $modified
             ];
         }
+
+        // Sort alphabetically by domain
+        usort($items, function($a, $b) {
+            return strcasecmp($a['domain'], $b['domain']);
+        });
 
         return $items;
     }

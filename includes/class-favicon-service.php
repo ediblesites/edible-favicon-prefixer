@@ -53,7 +53,7 @@ class Favicon_Service {
     /**
      * Validate URL format
      */
-    private function is_valid_url($url) {
+    public function is_valid_url($url) {
         if (empty($url)) {
             return false;
         }

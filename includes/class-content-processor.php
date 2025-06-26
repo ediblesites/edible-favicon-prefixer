@@ -32,7 +32,7 @@ class Content_Processor {
                 return $content;
             }
 
-            $links = $html->findMulti('a[href]:not([rel*="nofollow"])');
+            $links = $html->findMulti('a[href]:not([rel*="nofavicon"])');
             debug_log("Found " . count($links) . " candidate links in content");
 
             foreach ($links as $link) {
@@ -72,8 +72,21 @@ class Content_Processor {
             return;
         }
 
-        if (empty($url) || !$this->favicon_service->is_external_url($url)) {
-            debug_log("Skipping - empty URL or not external");
+        if (empty($url)) {
+            debug_log("Skipping - empty URL");
+            return;
+        }
+
+        // Check if we should ignore internal links
+        $ignore_internal = get_option('favicon_prefixer_ignore_internal', true);
+        if ($ignore_internal && !$this->favicon_service->is_external_url($url)) {
+            debug_log("Skipping - internal link and ignore_internal is enabled");
+            return;
+        }
+
+        // If not ignoring internal links, still check if it's a valid URL
+        if (!$this->favicon_service->is_valid_url($url)) {
+            debug_log("Skipping - invalid URL");
             return;
         }
 

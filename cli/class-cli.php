@@ -115,16 +115,6 @@ class Favicon_Prefixer_CLI extends WP_CLI_Command {
     }
 
     /**
-     * Show cache statistics
-     */
-    public function cache_status() {
-        $cache_manager = new Cache_Manager();
-        $status = $cache_manager->get_cache_status();
-        WP_CLI::log("Cached favicons: {$status['count']}");
-        WP_CLI::log("Cache size: " . size_format($status['size']));
-    }
-
-    /**
      * List all cached favicons
      * 
      * ## OPTIONS
@@ -140,14 +130,27 @@ class Favicon_Prefixer_CLI extends WP_CLI_Command {
      *   - yaml
      * ---
      * 
+     * [--summary]
+     * : Show only summary statistics (count and total size)
+     * 
      * ## EXAMPLES
      * 
      *     wp favicon cache_list
      *     wp favicon cache_list --format=json
+     *     wp favicon cache_list --summary
      */
     public function cache_list($args, $assoc_args) {
         $cache_manager = new Cache_Manager();
         $items = $cache_manager->get_cached_favicons();
+
+        // If summary mode, just show count and total size
+        if (isset($assoc_args['summary'])) {
+            $count = count($items);
+            $total_size = array_sum(array_column($items, 'size'));
+            WP_CLI::log("Cached favicons: $count");
+            WP_CLI::log("Cache size: " . size_format($total_size));
+            return;
+        }
 
         $format = $assoc_args['format'] ?? 'table';
         foreach ($items as &$item) {
