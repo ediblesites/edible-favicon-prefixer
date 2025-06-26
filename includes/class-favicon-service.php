@@ -12,13 +12,13 @@ class Favicon_Service {
      */
     public function get_favicon($url) {
         if (!$this->is_valid_url($url)) {
-            error_log("Invalid URL: $url");
+            debug_log("Invalid URL: $url");
             return false;
         }
 
         $domain = $this->get_domain($url);
         if (!$domain) {
-            error_log("Couldn't extract domain from URL: $url");
+            debug_log("Couldn't extract domain from URL: $url");
             return false;
         }
 
@@ -68,8 +68,11 @@ class Favicon_Service {
     private function get_domain($url) {
         try {
             $uri = Uri::createFromString($url);
-            return strtolower($uri->getHost());
+            $host = strtolower($uri->getHost());
+            debug_log("get_domain: URL=$url, extracted_host=$host");
+            return $host;
         } catch (Exception $e) {
+            debug_log("get_domain: Error extracting domain from $url: " . $e->getMessage());
             return false;
         }
     }
@@ -97,12 +100,12 @@ class Favicon_Service {
         $response = wp_remote_get($favicon_url);
         
         if (is_wp_error($response)) {
-            error_log("Failed to fetch favicon for $domain: " . $response->get_error_message());
+            debug_log("Failed to fetch favicon for $domain: " . $response->get_error_message());
             return false;
         }
 
         if (wp_remote_retrieve_response_code($response) !== 200) {
-            error_log("Invalid response code for favicon fetch: " . wp_remote_retrieve_response_code($response));
+            debug_log("Invalid response code for favicon fetch: " . wp_remote_retrieve_response_code($response));
             return false;
         }
 
@@ -114,14 +117,20 @@ class Favicon_Service {
      * Save favicon to local filesystem and cache its location
      */
     private function save_favicon($domain, $favicon_data) {
+        debug_log("save_favicon: Starting with domain=$domain");
+        
         $upload_dir = wp_upload_dir();
         $favicon_dir = $upload_dir['basedir'] . '/favicons';
         
-        $filename = $domain . '.png';
+        // Custom domain sanitization that preserves dots
+        $filename = favicon_prefixer_sanitize_domain_filename($domain) . '.png';
+        debug_log("save_favicon: domain=$domain, sanitized_filename=$filename");
+        
         $filepath = $favicon_dir . '/' . $filename;
+        debug_log("save_favicon: full_filepath=$filepath");
 
         if (!file_put_contents($filepath, $favicon_data)) {
-            error_log("Failed to save favicon for domain: $domain");
+            debug_log("Failed to save favicon for domain: $domain");
             return false;
         }
 

@@ -2,16 +2,12 @@
 
 class Favicon_Prefixer_CLI extends WP_CLI_Command {
     private $favicon_service;
-    private $plugin;
 
     public function __construct() {
         parent::__construct();
         
         // Initialize dependencies
         $this->favicon_service = new Favicon_Service();
-        
-        // Create plugin instance with dependencies
-        $this->plugin = new Favicon_Prefixer($this->favicon_service);
     }
 
     /**
@@ -75,7 +71,7 @@ class Favicon_Prefixer_CLI extends WP_CLI_Command {
                 esc_url($url)
             );
             
-            $processed_content = $this->plugin->process_content($test_content);
+            $processed_content = favicon_prefixer_process_content($test_content);
             
             if ($processed_content === $test_content) {
                 WP_CLI::error("Content was not modified");

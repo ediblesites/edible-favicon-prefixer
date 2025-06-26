@@ -96,14 +96,3 @@ $debug_mode = get_option('favicon_prefixer_debug_mode', false);
     margin: 10px 0;
 }
 </style>
-
-<?php
-function check_dependencies() {
-    if (!file_exists(FAVICON_PREFIXER_PATH . 'vendor/autoload.php')) {
-        add_action('admin_notices', function() {
-            echo '<div class="error"><p>Favicon Prefixer: Required dependencies are missing. Please run composer install.</p></div>';
-        });
-        return false;
-    }
-    return true;
-}
