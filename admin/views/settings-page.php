@@ -3,8 +3,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$post_types = get_post_types(['public' => true], 'objects');
-$enabled_types = get_option('favicon_prefixer_post_types', []);
+$post_types = Favicon_Prefixer_Admin::get_filtered_post_types();
+$enabled_types = get_option('favicon_prefixer_post_types', ['post', 'page']);
 $debug_mode = get_option('favicon_prefixer_debug_mode', false);
 ?>
 

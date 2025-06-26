@@ -79,19 +79,4 @@ Available formats: table (default), csv, json, yaml
 
 ## Version
 
-**Current Version:** 1.0.1
-
-## Changelog
-
-### 1.0.1
-- Fixed domain filename sanitization to preserve dots
-- Added custom domain sanitization utility function
-- Improved debug logging for troubleshooting
-- Moved utility functions to dedicated utils file
-
-### 1.0.0
-- Initial release
-- Basic favicon functionality
-- Caching system
-- Admin interface
-- WP-CLI commands
+**Current Version:** 1.0.2

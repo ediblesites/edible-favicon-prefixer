@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Favicon Prefixer
  * Description: Prefixes favicons to links within content
- * Version: 1.0.1
+ * Version: 1.0.2
  * Requires at least: 6.0
  * Requires PHP: 8.2
  * Text Domain: favicon-prefixer
@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Plugin constants
-define('FAVICON_PREFIXER_VERSION', '1.0.1');
+define('FAVICON_PREFIXER_VERSION', '1.0.2');
 define('FAVICON_PREFIXER_FILE', __FILE__);
 define('FAVICON_PREFIXER_PATH', plugin_dir_path(__FILE__));
 define('FAVICON_PREFIXER_URL', plugin_dir_url(__FILE__));
@@ -155,7 +155,7 @@ function favicon_prefixer_process_content($content) {
  */
 function favicon_prefixer_is_enabled_post_type() {
     $post_type = get_post_type();
-    $enabled_types = get_option('favicon_prefixer_post_types', []);
+    $enabled_types = get_option('favicon_prefixer_post_types', ['post', 'page']);
     
     debug_log("Current post type: $post_type");
     debug_log("Enabled post types: " . print_r($enabled_types, true));

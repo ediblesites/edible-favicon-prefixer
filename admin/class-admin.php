@@ -32,7 +32,7 @@ class Favicon_Prefixer_Admin {
             'favicon_prefixer_post_types',
             [
                 'type' => 'array',
-                'default' => [],
+                'default' => ['post', 'page'],
                 'sanitize_callback' => 'favicon_prefixer_sanitize_post_types'
             ]
         );
@@ -74,6 +74,18 @@ class Favicon_Prefixer_Admin {
         settings_errors('favicon_prefixer');
         
         require_once FAVICON_PREFIXER_PATH . 'admin/views/settings-page.php';
+    }
+
+    /**
+     * Get filtered post types for favicon prefixer
+     */
+    public static function get_filtered_post_types() {
+        $post_types = get_post_types(['public' => true], 'objects');
+        
+        // Filter out attachment (media) post type
+        unset($post_types['attachment']);
+        
+        return $post_types;
     }
 }
 
