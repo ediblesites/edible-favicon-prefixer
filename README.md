@@ -26,7 +26,7 @@ A WordPress plugin that automatically prefixes favicons to external links in you
 
 This plugin supports automatic updates via the [Git Updater](https://github.com/afragen/git-updater) plugin:
 
-1. Install the [Git Updater](https://github.com/afragen/git-updater/releases/) plugin
+1. After installing the plugin as described above, install the [Git Updater](https://github.com/afragen/git-updater/releases/) plugin
 2. Activate it and click 'Activate Free License' (no license required)
 3. The plugin will automatically detect this repository and offer updates
 
@@ -37,8 +37,8 @@ The plugin has sensible defaults, so should require no configuration on installa
 ### Post Types
 Select which post types should display favicons. Defaults to Posts and Pages.
 
-### Link Processing
-- **Ignore internal links** - When enabled, only external links get favicons. Defaults to "On".
+### Ignore internal links
+When enabled, only external links get favicons. Defaults to "On".
 
 ### Debug Mode
 Enable debug logging to troubleshoot issues. Logs are written to WordPress debug log. Defaults to "off".
